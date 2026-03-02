@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMissionDto } from './dto/create-mission.dto';
+import * as path from 'path';
+import * as fs from 'fs';
+import { readFileSync } from 'fs';
 
 @Injectable()
 export class MissionService {
@@ -31,12 +34,11 @@ export class MissionService {
       FAILED: failed,
     };
   }
-  create(createMissionDto: CreateMissionDto) {
-    return 'This action adds a new mission';
-  }
 
   findAll() {
-    return `This action returns all mission`;
+    const filePath = path.join(process.cwd() , "data/missions.json");
+    const mission = readFileSync(filePath , 'utf-8');
+    return mission;
   }
 
   findOne(id: number) {
