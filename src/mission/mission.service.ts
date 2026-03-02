@@ -13,25 +13,25 @@ export class MissionService {
   { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' }
 ];
   getSummary(){
-    let ACTIVE: number = 0
-    let FAILED: number = 0
-    let COMPLETED : number = 0
+    let active: number = 0
+    let failed: number = 0
+    let completed : number = 0
     for( const m of this.missions){
       const missionStatus = m.status
       if(missionStatus === "ACTIVE"){
-        ACTIVE++;
+        active++;
       }
       else if(missionStatus === "FAILED"){
-        FAILED++;
+        failed++;
       }
       else if(missionStatus === "COMPLETED"){
-        COMPLETED++
+        completed++
       }
     }
     return {
-  "ACTIVE": ACTIVE,
-  "COMPLETED": COMPLETED,
-  "FAILED": FAILED
+  ACTIVE: active,
+  COMPLETED: completed,
+  FAILED: failed
 }
   }
   create(createMissionDto: CreateMissionDto) {
