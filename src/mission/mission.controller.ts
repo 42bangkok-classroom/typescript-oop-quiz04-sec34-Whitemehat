@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { MissionService } from './mission.service';
-import { CreateMissionDto } from './dto/create-mission.dto';
+//import { CreateMissionDto } from './dto/create-mission.dto';
 
 @Controller('missions')
 export class MissionController {
@@ -11,10 +11,10 @@ export class MissionController {
   //  return this.missionService.create(createMissionDto);
   //}
 
-  @Get()
-  findAll() {
-    return this.missionService.findAll();
-  }
+  //@Get()
+  //findAll() {
+  //  return this.missionService.findAll();
+  //}
   @Get('summary')
   getSummary() {
     return this.missionService.getSummary();

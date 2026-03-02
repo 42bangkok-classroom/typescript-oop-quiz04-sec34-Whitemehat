@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { IMission } from './mission.interface';
+//import { IMission } from './mission.interface';
 //import { CreateMissionDto } from './dto/create-mission.dto';
-import * as path from 'path';
-import * as fs from 'fs';
+//import * as path from 'path';
+//import * as fs from 'fs';
+//import { OMission } from './mission_out.interface';
 
 @Injectable()
 export class MissionService {
@@ -33,16 +34,5 @@ export class MissionService {
       COMPLETED: completed,
       FAILED: failed,
     };
-  }
-
-  findAll() {
-    const filePath = path.join(process.cwd(), 'data/missions.json');
-    const data = fs.readFileSync(filePath, 'utf-8');
-    const mission = JSON.parse(data);
-    return mission as IMission;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} mission`;
   }
 }
