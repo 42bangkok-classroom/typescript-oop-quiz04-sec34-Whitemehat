@@ -6,10 +6,10 @@ import { CreateMissionDto } from './dto/create-mission.dto';
 export class MissionController {
   constructor(private readonly missionService: MissionService) {}
 
-  @Post()
-  create(@Body() createMissionDto: CreateMissionDto) {
-    return this.missionService.create(createMissionDto);
-  }
+  //@Post()
+  //create(@Body() createMissionDto: CreateMissionDto) {
+  //  return this.missionService.create(createMissionDto);
+  //}
 
   @Get()
   findAll() {
