@@ -17,7 +17,7 @@ export class MissionService {
     const result: IMission[] = [];
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
-    const data = JSON.parse(rawData);
+    const data = JSON.parse(rawData) as IMission[];
 
     for (const mission of data) {
       const start = mission.startDate ? new Date(mission.startDate) : null;
@@ -44,7 +44,7 @@ export class MissionService {
     return result;
   }
 
-  findOne(id: string, clearance: string): IMission {
+  findOne(id: string, clearance: string) {
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
     const data = JSON.parse(rawData);
