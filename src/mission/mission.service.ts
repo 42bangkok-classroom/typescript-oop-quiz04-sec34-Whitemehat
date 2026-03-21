@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IMission } from './interface/mission.interface';
+import { IMission } from './mission.interface';
 import * as fs from 'fs';
 import * as path from 'path';
 @Injectable()
