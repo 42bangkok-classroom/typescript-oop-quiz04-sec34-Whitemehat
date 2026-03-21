@@ -6,7 +6,7 @@ export class MissionController {
   constructor(private readonly missionService: MissionService) {}
 
   @Get()
-  findAll(){
+  findAll() {
     return this.missionService.findAll();
   }
 
@@ -17,9 +17,9 @@ export class MissionController {
 
   @Get(':id')
   findOne(
-    @Param('id') id:string,
-    @Query('clearance') clearance: string = 'STANDARD'
-  ){
-    return this.missionService.findOne(id , clearance);
+    @Param('id') id: string,
+    @Query('clearance') clearance: string = 'STANDARD',
+  ) {
+    return this.missionService.findOne(id, clearance);
   }
 }
