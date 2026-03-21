@@ -11,7 +11,7 @@ export class MissionService {
     { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' },
   ];
 
-  summary() {
+  getSummary() {
     let active: number = 0;
     let completed: number = 0;
     let failed: number = 0;

@@ -7,6 +7,6 @@ export class MissionController {
 
   @Get('summary')
   getSummary() {
-    return this.missionService.summary();
+    return this.missionService.getSummary();
   }
 }
