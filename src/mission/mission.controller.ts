@@ -1,5 +1,14 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Delete,
+} from '@nestjs/common';
 import { MissionService } from './mission.service';
+import { CreateMissionDTO } from './DTO/create-mission.dto';
 
 @Controller('missions')
 export class MissionController {
@@ -21,5 +30,15 @@ export class MissionController {
     @Query('clearance') clearance: string = 'STANDARD',
   ) {
     return this.missionService.findOne(id, clearance);
+  }
+
+  @Post()
+  create(@Body() createDto: CreateMissionDTO) {
+    return this.missionService.create(createDto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.missionService.delete(id);
   }
 }

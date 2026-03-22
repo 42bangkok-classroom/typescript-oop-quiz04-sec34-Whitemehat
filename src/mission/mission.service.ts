@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { IMission } from './mission.interface';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CreateMissionDTO } from './DTO/create-mission.dto';
+import { Mission } from './mission-data.interface';
 @Injectable()
 export class MissionService {
   private readonly missions = [
@@ -60,7 +62,6 @@ export class MissionService {
       };
     } else {
       return {
-        id: mission_need.id,
         ...mission_need,
       };
     }
@@ -85,6 +86,43 @@ export class MissionService {
       ACTIVE: active,
       COMPLETED: completed,
       FAILED: failed,
+    };
+  }
+
+  create(createDto: CreateMissionDTO): void {
+    const filepath = path.join(__dirname, '../../data/missions.json');
+    const rawData = fs.readFileSync(filepath, 'utf-8');
+    const data = JSON.parse(rawData);
+    const data_id = data.length;
+    const createMission: Mission = {
+      id: String(data_id + 1),
+      codename: createDto.codename,
+      status: 'ACTIVE',
+      riskLevel: createDto.riskLevel,
+      targetName: createDto.targetName,
+      startDate: createDto.startDate,
+      endDate: null,
+    };
+    data.push(createMission);
+    fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+  }
+
+  delete(id: string) {
+    const filepath = path.join(__dirname, '../../data/missions.json');
+    const rawData = fs.readFileSync(filepath, 'utf-8');
+    const data = JSON.parse(rawData);
+    const found = data.find((d) => d.id === id);
+    if (!found) {
+      throw new NotFoundException({
+        statusCode: 404,
+        message: 'Not Found',
+        error: 'Not Found',
+      });
+    }
+    const newData = data.filter((d) => d.id !== id);
+    fs.writeFileSync(filepath, JSON.stringify(newData, null, 2));
+    return {
+      message: `Mission ID ${id} has been successfully deleted.`,
     };
   }
 }
