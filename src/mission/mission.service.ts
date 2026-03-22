@@ -15,11 +15,11 @@ export class MissionService {
     { id: 6, codename: 'GHOST_RIDER', status: 'COMPLETED' },
   ];
 
-  findAll(): IMission[] {
-    const result: IMission[] = [];
+  findAll(): Mission[] {
+    const result: Mission[] = [];
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
-    const data = JSON.parse(rawData) as IMission[];
+    const data = JSON.parse(rawData) as Mission[];
 
     for (const mission of data) {
       const start = mission.startDate ? new Date(mission.startDate) : null;
@@ -32,10 +32,12 @@ export class MissionService {
         duration = Math.floor(different / (1000 * 60 * 60 * 24));
       }
 
-      const format: IMission = {
+      const format = {
         id: mission.id,
         codename: mission.codename,
         status: mission.status,
+        riskLevel: mission.riskLevel,
+        targetName: mission.targetName,
         startDate: mission.startDate,
         endDate: mission.endDate,
         durationDays: duration,
@@ -111,7 +113,7 @@ export class MissionService {
     return createMission;
   }
 
-  delete(id: string) {
+  remove(id: string) {
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
     const data = JSON.parse(rawData) as Mission[];

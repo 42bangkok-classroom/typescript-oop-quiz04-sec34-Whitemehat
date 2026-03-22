@@ -39,6 +39,6 @@ export class MissionController {
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.missionService.delete(id);
+    return this.missionService.remove(id);
   }
 }
