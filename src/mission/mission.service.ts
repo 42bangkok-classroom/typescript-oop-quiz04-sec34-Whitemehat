@@ -51,6 +51,9 @@ export class MissionService {
     const rawData = fs.readFileSync(filepath, 'utf-8');
     const data = JSON.parse(rawData) as Mission[];
     const mission_need = data.find((m) => m.id === id);
+    if (!mission_need) {
+      throw new NotFoundException();
+    }
     if (
       (mission_need?.riskLevel === 'HIGH' ||
         mission_need?.riskLevel === 'CRITICAL') &&
@@ -89,7 +92,7 @@ export class MissionService {
     };
   }
 
-  create(createDto: CreateMissionDTO): void {
+  create(createDto: CreateMissionDTO): Mission {
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
     const data = JSON.parse(rawData) as Mission[];
@@ -105,6 +108,7 @@ export class MissionService {
     };
     data.push(createMission);
     fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+    return createMission;
   }
 
   delete(id: string) {
