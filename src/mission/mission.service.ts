@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IMission } from './mission.interface';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CreateMissionDTO } from './DTO/create-mission.dto';
