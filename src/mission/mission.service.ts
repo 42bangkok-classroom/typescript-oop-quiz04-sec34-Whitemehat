@@ -49,11 +49,11 @@ export class MissionService {
   findOne(id: string, clearance: string) {
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
-    const data = JSON.parse(rawData);
+    const data = JSON.parse(rawData) as Mission[];
     const mission_need = data.find((m) => m.id === id);
     if (
-      (mission_need.riskLevel === 'HIGH' ||
-        mission_need.riskLevel === 'CRITICAL') &&
+      (mission_need?.riskLevel === 'HIGH' ||
+        mission_need?.riskLevel === 'CRITICAL') &&
       clearance !== 'TOP_SECRET'
     ) {
       return {
@@ -92,7 +92,7 @@ export class MissionService {
   create(createDto: CreateMissionDTO): void {
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
-    const data = JSON.parse(rawData);
+    const data = JSON.parse(rawData) as Mission[];
     const data_id = data.length;
     const createMission: Mission = {
       id: String(data_id + 1),
@@ -110,7 +110,7 @@ export class MissionService {
   delete(id: string) {
     const filepath = path.join(__dirname, '../../data/missions.json');
     const rawData = fs.readFileSync(filepath, 'utf-8');
-    const data = JSON.parse(rawData);
+    const data = JSON.parse(rawData) as Mission[];
     const found = data.find((d) => d.id === id);
     if (!found) {
       throw new NotFoundException({
